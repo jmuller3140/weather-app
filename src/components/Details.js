@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive';
 
 const Details = (props) => {
     const {main, weather, clouds, wind, rain, snow, dt_txt_local} = props;
@@ -18,18 +19,36 @@ const Details = (props) => {
         hour = hour.toString() + " AM";
     }
     return(
-        <Container>
-            <MoonFont>{hour}</MoonFont>
-            <img src={pictureSrc} alt="weather-img"/>
-            <div>{weather[0].description}</div>
-            <div><MoonBold>{main.temp}&#176;</MoonBold></div>
-            <ItemDisplay>
-                <div>Pressure: <MoonFont>{main.pressure}</MoonFont> hPa</div>
-                <div>Sea lvl: <MoonFont>{main.sea_level}</MoonFont> hPa</div>
-                <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
-                <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
-            </ItemDisplay>
-        </Container>
+        <div>
+            <MediaQuery query="(min-device-width: 1224px)">
+                <Container>
+                    <MoonFont>{hour}</MoonFont>
+                    <img src={pictureSrc} alt="weather-img"/>
+                    <div>{weather[0].description}</div>
+                    <div><MoonBold>{main.temp}&#176;</MoonBold></div>
+                    <ItemDisplay>
+                        <div>Pressure: <MoonFont>{main.pressure}</MoonFont> hPa</div>
+                        <div>Sea lvl: <MoonFont>{main.sea_level}</MoonFont> hPa</div>
+                        <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
+                        <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
+                    </ItemDisplay>
+                </Container>
+            </MediaQuery>
+            <MediaQuery query="(max-device-width: 1224px)">
+                <ContainerMobile>
+                    <MoonFont>{hour}</MoonFont>
+                    <img src={pictureSrc} alt="weather-img"/>
+                    <div>{weather[0].description}</div>
+                    <div><MoonBold>{main.temp}&#176;</MoonBold></div>
+                    <ItemDisplay>
+                        <div>Pressure: <MoonFont>{main.pressure}</MoonFont> hPa</div>
+                        <div>Sea lvl: <MoonFont>{main.sea_level}</MoonFont> hPa</div>
+                        <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
+                        <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
+                    </ItemDisplay>
+                </ContainerMobile>
+            </MediaQuery>
+        </div>
         )
 }
     const Container = styled.div`
@@ -44,7 +63,6 @@ const Details = (props) => {
         border: 1px solid grey;
         align-items:center;
         padding-top:.5em;
-
     `;
     const ItemDisplay = styled.div`
         display:flex;
@@ -57,5 +75,18 @@ const Details = (props) => {
     `;
     const MoonBold = styled.span`
         font-family: "Moon-Bold";
+    `;
+
+    const ContainerMobile = styled.div`
+        width: 150px;
+        height: 200px;
+        display:flex;
+        flex-direction:column;
+        font-family: Raleway-Regular;
+        font-size: 10pt;
+        border-radius: 5px;
+        border: 1px solid grey;
+        align-items:center;
+        padding-top:.5em;
     `;
 export default Details;

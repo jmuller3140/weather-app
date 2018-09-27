@@ -420,12 +420,12 @@ class Home extends React.Component {
                         )}
                     </WeatherContainerMobile>
                     {this.state.forcastIndepth !== "" && (
-                        <DetailsContainer>
+                        <DetailsContainerMobile>
                             <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
                             <Detail>
                                 {this.state.forcastIndepth}
                             </Detail>
-                        </DetailsContainer>
+                        </DetailsContainerMobile>
                         )}
                 </ComponentContainer>
           </MediaQuery>
@@ -620,6 +620,15 @@ const ComponentContainer = styled.div`
     flex-wrap:wrap;
     max-width:100%;
     `;
+const DetailsContainerMobile = styled.div`
+    position: absolute;
+    z-index: 450;
+    top: 3em;
+    margin: 0 auto;
+    max-width: 90%;
+    background-color: silver;
+    text-align:right;
+ `;
 export default withStyles(styles)(Home);
 
 
