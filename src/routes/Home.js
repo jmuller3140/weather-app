@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import request from 'superagent';
 import moment from 'moment-timezone';
 import Spinner from 'react-spinkit';
+import MediaQuery from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
 
 import Header from './Header';
@@ -288,7 +289,20 @@ class Home extends React.Component {
                 key++;
                 return (<Day {...props} />)
                 });
-            resolve(<ForcastFiveDay>{forcast}</ForcastFiveDay>)
+            resolve(
+                    <div>
+                        <MediaQuery query="(min-device-width: 1224px)">
+                            <ForcastFiveDay>
+                                {forcast}
+                            </ForcastFiveDay>
+                        </MediaQuery>
+                        <MediaQuery query="(max-device-width: 1224px)">
+                            <ForcastFiveDayMobile>
+                                {forcast}
+                            </ForcastFiveDayMobile>
+                        </MediaQuery>
+                    </div>
+                    )
         })
     }
 ////////////////////////////////////////////////
@@ -311,7 +325,9 @@ class Home extends React.Component {
 
     const {suggestions} = this.state;
     return (
-        <ComponentContainer>
+        <div>
+         <MediaQuery query="(min-device-width: 1224px)">
+            <ComponentContainer>
            <WeatherContainer>
             <p>What weather would you like to see?</p>
             <Autosuggest
@@ -375,7 +391,45 @@ class Home extends React.Component {
                 </BackgroundCloud>
                 )
             }
-        </ComponentContainer>
+            </ComponentContainer>
+         </MediaQuery>
+          <MediaQuery query="(max-device-width: 1224px)">
+                <ComponentContainer>
+                    <WeatherContainerMobile>
+                        <p>What weather would you like to see?</p>
+                        <Autosuggest
+                                renderInputComponent={this.renderInputComponent}
+                                suggestions={this.state.suggestions}
+                                onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+                                onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+                                getSuggestionValue={this.getSuggestionValue}
+                                renderSuggestion={this.renderSuggestion}
+                                inputProps={inputProps}
+                                theme={{
+                                    container: classes.container,
+                                    suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                                    suggestionsList: classes.suggestionsList,
+                                    suggestion: classes.suggestion,
+                                }}
+                        />
+                        <Button variant="outlined" color="primary" onClick={this.getWeather} className={classes.button}>Submit</Button>
+                        { this.state.forcastDisplay.length !== 0 && (
+                        <ForcastDisplayMobile>
+                                {this.state.forcastDisplay}
+                        </ForcastDisplayMobile>
+                        )}
+                    </WeatherContainerMobile>
+                    {this.state.forcastIndepth !== "" && (
+                        <DetailsContainer>
+                            <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
+                            <Detail>
+                                {this.state.forcastIndepth}
+                            </Detail>
+                        </DetailsContainer>
+                        )}
+                </ComponentContainer>
+          </MediaQuery>
+        </div>
     );
   }
 }
@@ -441,7 +495,7 @@ const BackgroundRain = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:100%;
+    height:75%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 2s .5s both;
@@ -450,7 +504,7 @@ const BackgroundClear = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:100%;
+    height:75%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -459,7 +513,7 @@ const BackgroundSnow = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:100%;
+    height:75%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -468,7 +522,7 @@ const BackgroundCloud = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:100%;
+    height:75%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -477,7 +531,7 @@ const BackgroundMist = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:100%;
+    height:75%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -493,6 +547,7 @@ const ForcastDetailsContainer = styled.div`
     justify-content: center;
 `;
 const ForcastDetailsItem = styled.div`
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -500,7 +555,7 @@ const ForcastDetailsItem = styled.div`
 const DetailsContainer = styled.div`
     position: absolute;
     z-index: 450;
-    top: -6em;
+    top: 3em;
     margin: 0 auto;
     max-width: 50%;
     background-color: silver;
@@ -529,7 +584,6 @@ const ComponentContainer = styled.div`
     border-radius: 5pt;
     background-color: rgba(255, 255, 255, 0.8);
   `;
-
   const Loading = styled.div`
     width: 100%;
     height:100%;
@@ -541,6 +595,31 @@ const ComponentContainer = styled.div`
     justify-content: center;
     background: rgba(0, 0, 0, 0.5);
   `;
+////////////////////////////////////////////////
+////////////// Mobile CSS// ////////////////////
+////////////////////////////////////////////////
+    const WeatherContainerMobile = styled.div`
+    margin: 2em;
+    position:relative
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    font-family: Raleway-Bold;
+    z-index:400;
+    border-radius: 5pt;
+    background-color: rgba(255, 255, 255, 0.8);
+  `;
+  const ForcastDisplayMobile = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    max-width:90%;
+  `;
+  const ForcastFiveDayMobile = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    max-width:100%;
+    `;
 export default withStyles(styles)(Home);
 
 

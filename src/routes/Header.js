@@ -13,8 +13,8 @@ export default class Header extends React.Component{
     render(){
         const HeaderContainer = styled.div`
                 width:100%;
-                padding-top:5%;
-                padding-bottom:5%;
+                padding-top:4%;
+                padding-bottom:4%;
                 display: inline-flex;
                 justify-content: space-between;
                 background-color: white;
@@ -69,7 +69,7 @@ export default class Header extends React.Component{
                 <MediaQuery query="(max-device-width: 1224px)">
                     <HeaderContainerMobile>
                         <TitlesMobile>
-                            <div>JAMES MULLER</div>
+                            <div>THE WEATHER APP</div>
                         </TitlesMobile>
                     </HeaderContainerMobile>
                 </MediaQuery>
