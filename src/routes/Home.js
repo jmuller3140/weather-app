@@ -617,6 +617,7 @@ const ComponentContainer = styled.div`
   `;
   const ForcastFiveDayMobile = styled.div`
     display:flex;
+    justify-content: center;
     flex-wrap:wrap;
     max-width:100%;
     `;

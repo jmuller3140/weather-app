@@ -80,6 +80,7 @@ const Details = (props) => {
     const ContainerMobile = styled.div`
         width: 150px;
         height: 200px;
+        margin-bottom: 1em;
         display:flex;
         flex-direction:column;
         font-family: Raleway-Regular;
