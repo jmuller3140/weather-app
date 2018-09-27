@@ -1,0 +1,71 @@
+@font-face {
+    font-family: Zwizz-Bold;
+    src: local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.woff) format('woff');
+    src: local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.woff2) format('woff2').
+         local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.ttf) format('truetype'),
+         local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.otf) format('otf');
+}
+@font-face {
+    font-family: Zwizz-Regular;
+    src: local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.woff) format('woff');
+    src:  local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.woff2) format('woff2')
+         local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.ttf) format('truetype'),
+         local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.otf) format('otf');
+}
+@font-face {
+    font-family: Ikaros-Light;
+    src: local('Ikaros-Light'), url(../fonts/Ikaros-Light.woff) format('woff');
+    src: local('Ikaros-Light'), url(../fonts/Ikaros-Light.woff2) format('woff2')
+    local('Ikaros-Light'), url(../fonts/Ikaros-Light.otf) format('otf');
+}
+@font-face {
+    font-family: Ikaros-Regular;
+    src: local('Ikaros-Regular'), url(../fonts/Ikaros-Regular.woff) format('woff');
+    src: local('Ikaros-Regular'), url(../fonts/Ikaros-Regular.woff2) format('woff2'),
+    local('Ikaros-Regular'), url(../fonts/Ikaros-Regular.otf) format('otf');
+}
+
+@font-face {
+    font-family: Dense-Regular;
+    src: local('Dense-Regular'), url(../fonts/Dense-Regular.woff) format('woff');
+    src: local('Dense-Regular'), url(../fonts/Dense-Regular.woff2) format('woff2'),
+    local('Dense-Regular'), url(../fonts/Dense-Regular.ttf) format('truetype')
+    local('Dense-Regular'), url(../fonts/Dense-Regular.otf) format('otf');
+}
+@font-face {
+    font-family: Raleway-Bold;
+    src: local('Raleway-Bold'), url(../fonts/Raleway-Bold.woff) format('woff');
+    src: local('Raleway-Bold'), url(../fonts/Raleway-Bold.woff2) format('woff2'),
+    local('Raleway-Bold'), url(../fonts/Raleway-Bold.ttf) format('truetype')
+    local('Raleway-Bold'), url(../fonts/Raleway-Bold.otf) format('otf');
+}
+@font-face {
+    font-family: Raleway-Regular;
+    src: local('Raleway-Regular'), url(../fonts/Raleway-Regular.woff) format('woff');
+    src: local('Raleway-Regular'), url(../fonts/Raleway-Regular.woff2) format('woff2'),
+    local('Raleway-Regular'), url(../fonts/Raleway-Regular.ttf) format('truetype')
+    local('Raleway-Regular'), url(../fonts/Raleway-Regular.otf) format('otf');
+}
+@font-face {
+    font-family: Moon-Light;
+    src: local('MoonLight'), url(../fonts/MoonLight.woff) format('woff');
+    src: local('MoonLight'), url(../fonts/MoonLight.woff2) format('woff2'),
+    local('MoonLight'), url(../fonts/MoonLight.ttf) format('truetype')
+    local('MoonLight'), url(../fonts/MoonLight.otf) format('otf');
+}
+@font-face {
+    font-family: Moon-Bold;
+    src: local('Moon-Bold'), url(../fonts/MoonBold.woff) format('woff');
+    src: local('Moon-Bold'), url(../fonts/MoonBold.woff2) format('woff2'),
+    local('Moon-Bold'), url(../fonts/MoonBold.ttf) format('truetype')
+    local('Moon-Bold'), url(../fonts/MoonBold.otf) format('otf');
+}
+body,html{
+    height:100%;
+    width:100%;
+    background-color:white;
+}
+#root{
+    width:inherit;
+    height: inherit;
+}
