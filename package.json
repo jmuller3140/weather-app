@@ -12,6 +12,7 @@
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "react": "^16.5.2",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-autosuggest": "^9.4.2",
     "react-dom": "^16.5.2",
     "react-responsive": "^5.0.0",
@@ -20,10 +21,11 @@
     "react-spinkit": "^3.0.0",
     "react-transition-group": "^2.4.0",
     "styled-components": "^3.4.9",
+    "styled-transition-group": "^1.0.0",
     "superagent": "^4.0.0-beta.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max_old_space_size=4096 start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

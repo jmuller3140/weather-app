@@ -1,29 +1,6 @@
-// import React from 'react';
-
-// import styled from 'styled-components';
-// import PropTypes from 'prop-types';
-// import Autosuggest from 'react-autosuggest';
-// import TextField from '@material-ui/core/TextField';
-// import Paper from '@material-ui/core/Paper';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Button from '@material-ui/core/Button';
-// import request from 'superagent';
-// import moment from 'moment-timezone';
-// import Spinner from 'react-spinkit';
-// import { withStyles } from '@material-ui/core/styles';
-
-// import Day from '../components/Day';
-// import Details from '../components/Details';
-// import jsonData from './citylist.json';
-
-// const Home = () => {
-//     return(<div>hi</div>)
-// }
-// export default Home
-
 import React from 'react';
 
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import TextField from '@material-ui/core/TextField';
@@ -35,9 +12,15 @@ import moment from 'moment-timezone';
 import Spinner from 'react-spinkit';
 import { withStyles } from '@material-ui/core/styles';
 
+import Header from './Header';
 import Day from '../components/Day';
 import Details from '../components/Details';
 import jsonData from './citylist.json';
+import rain from '../imgs/rain.png';
+import clear from '../imgs/clear.png';
+import mist from '../imgs/mist.png';
+import snow from '../imgs/snow.png';
+import cloud from '../imgs/cloudy.png';
 
 class Home extends React.Component {
     constructor(){
@@ -53,7 +36,8 @@ class Home extends React.Component {
         this.onClickDetailsCancel = this.onClickDetailsCancel.bind(this);
         this.getTempArray = this.getTempArray.bind(this);
         this.setTimeZone = this.setTimeZone.bind(this);
-        this.state = { value: '', suggestions: [], suggestionsList: [], forcastDisplay: [], forcastIndepth: "", timezone: "", isLoading: false}
+        this.onHoverBackgroundChange = this.onHoverBackgroundChange.bind(this);
+        this.state = { value: '', suggestions: [], suggestionsList: [], forcastDisplay: [], forcastIndepth: "", timezone: "", isLoading: false, backgroundImg: ""}
         this.cityId = 0;
         this.lastInputLength = 0;
         this.timezone = "";
@@ -85,8 +69,7 @@ class Home extends React.Component {
 /////// adds material UI text field for input///
 ////////////////////////////////////////////////
       renderInputComponent = (inputProps) => {
-        return (
-            <TextField fullWidth {...inputProps} />
+        return (<InputComponent inputProps={inputProps} />
             );
     }
 ////////////////////////////////////////////////
@@ -108,6 +91,25 @@ class Home extends React.Component {
     else{
             e.stopPropagation();
         }
+    }
+////////////////////////////////////////////////
+/////// cancels weather details screen /////////
+////////////////////////////////////////////////
+    onHoverBackgroundChange(e, url){
+        const num = parseInt(url.slice(0,2));
+        let picture = "";
+        if(num < 2){
+            picture = 'clear';
+        } else if(num >= 2 && num < 5){
+            picture = 'cloud';
+        } else if(num >= 9 && num < 12){
+            picture = 'rain';
+        } else if(num === 13){
+            picture = 'snow';
+        }else if(num === 50){
+            picture = 'mist';
+        }
+        this.setState({backgroundImg: picture});
     }
 ////////////////////////////////////////////////
 /////// gets weather details for specific day //
@@ -178,9 +180,10 @@ class Home extends React.Component {
         .then( res => {
             let json = JSON.parse(res.text);
             json["getDetails"] = this.getDetails;
+            json["onHoverBackgroundChange"] = this.onHoverBackgroundChange;
             this.runner(json.city.coord, json).then(function(data){
                 that.setState({forcastDisplay: data});
-                that.setState({isloading: false});
+                that.setState({isLoading: false});
             })
         });
     }
@@ -238,14 +241,14 @@ class Home extends React.Component {
                 const convertedHour = date.tz(json.timezone).hour();
 
                 if(convertedHour === 11 || convertedHour === 12 || convertedHour === 13){
-                    weatherIcon = json.details.list[i].weather.icon;
-                    weatherDescription = json.details.list[i].weather.description;
+                    weatherIcon = json.details.list[i].weather[0].icon;
+                    weatherDescription = json.details.list[i].weather[0].description;
                 }
                 if(i === 0 ){
                     if(convertedHour > 13){
-                        weatherIcon = json.details.list[i].weather.icon;
+                        weatherIcon = json.details.list[i].weather[0].icon;
                         console.log(weatherIcon);
-                        weatherDescription = json.details.list[i].weather.description;
+                        weatherDescription = json.details.list[i].weather[0].description;
                         console.log(weatherDescription);
                     }
                     previousDayString = forcastDay;
@@ -270,7 +273,7 @@ class Home extends React.Component {
                 }
             }
             tempArray.push({hour: dayArray, maxTemp: max_temp, minTemp: min_temp, forcastDay: previousDayString, weatherIcon: weatherIcon, weatherDescription: weatherDescription});
-            resolve({tempArray: tempArray, getDetails: json.details.getDetails});
+            resolve({tempArray: tempArray, getDetails: json.details.getDetails, onHoverBackgroundChange: json.details.onHoverBackgroundChange});
         })
     }
 ////////////////////////////////////////////////
@@ -281,7 +284,7 @@ class Home extends React.Component {
         return new Promise((resolve, reject) => {
             let key = 0;
             let forcast = forcastInfo.tempArray.map( day => {
-                let props = {key: key, getDetails: forcastInfo.getDetails, hour: day.hour, maxTemp: day.maxTemp, minTemp: day.minTemp, forcastDay: day.forcastDay, weatherIcon: day.weatherIcon, weatherDescription: day.weatherDescription};
+                let props = {key: key, getDetails: forcastInfo.getDetails, hour: day.hour, maxTemp: day.maxTemp, minTemp: day.minTemp, forcastDay: day.forcastDay, weatherIcon: day.weatherIcon, weatherDescription: day.weatherDescription, onHover: forcastInfo.onHoverBackgroundChange};
                 key++;
                 return (<Day {...props} />)
                 });
@@ -329,26 +332,59 @@ class Home extends React.Component {
             <Button variant="outlined" color="primary" onClick={this.getWeather} className={classes.button}>Submit</Button>
             { this.state.forcastDisplay.length !== 0 && (
             <div>
-                {this.state.forcastDisplay}
+                    {this.state.forcastDisplay}
             </div>
             )}
             </WeatherContainer>
             {this.state.forcastIndepth !== "" && (
-            <DetailsContainer>
-                <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.button}>Cancel</Button>
-                <Detail>
-                    {this.state.forcastIndepth}
-                </Detail>
-            </DetailsContainer>
+                <DetailsContainer>
+                    <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
+                    <Detail>
+                        {this.state.forcastIndepth}
+                    </Detail>
+                </DetailsContainer>
                 )}
             {this.state.isLoading && (
                         <Loading>
                             <Spinner name="ball-spin-fade-loader" color="black"/>
                         </Loading>
                     )}
+            {this.state.backgroundImg === "clear" && (
+                <BackgroundClear>
+                </BackgroundClear>
+                )
+            }
+            {this.state.backgroundImg === "rain" && (
+                <BackgroundRain>
+                </BackgroundRain>
+                )
+            }
+            {this.state.backgroundImg === "mist" && (
+                <BackgroundMist>
+                </BackgroundMist>
+                )
+            }
+            {this.state.backgroundImg === "snow" && (
+
+                <BackgroundSnow>
+                </BackgroundSnow>
+                )
+            }
+            {this.state.backgroundImg === "cloud" && (
+                <BackgroundCloud>
+                </BackgroundCloud>
+                )
+            }
         </ComponentContainer>
     );
   }
+}
+
+////////////////////////////////////////////////
+/////// custom input component to not lose ref//
+////////////////////////////////////////////////
+const InputComponent = (inputProps) => {
+    return (<div><TextField fullWidth {...inputProps} /></div>);
 }
 ////////////////////////////////////////////////
 ////////////// CSS for MaterialUI //////////////
@@ -357,7 +393,7 @@ const styles = {
   container: {
     position: 'relative',
     color: 'black',
-    width: '16em',
+    width: '18em',
     marginBottom: '.5em'
   },
   suggestionsContainerOpen: {
@@ -376,20 +412,76 @@ const styles = {
     textAlign: 'left'
   },
   suggestionsList: {
-    margin: 0,
-    padding: 0,
+    marginTop: '-1em',
+    padding: '.5em',
     color: 'black',
     fontFamily: 'Raleway-Regular',
     listStyleType: 'none',
-    textAlign: 'left'
+    textAlign: 'left',
+    backgroundColor: 'white',
+    border: '1px solid black',
+    borderRadius: '5px',
   },
   button: {
     width: '18em'
+  },
+  buttonCancel: {
+    width: '1em',
   },
 }
 ////////////////////////////////////////////////
 ////////////// CSS for divs ////////////////////
 ////////////////////////////////////////////////
+const TransitionIn = keyframes`
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+        }
+    `;
+const BackgroundRain = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:100%;
+    background: url(${rain}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionIn} 2s .5s both;
+`;
+const BackgroundClear = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:100%;
+    background: url(${clear}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionIn} 1s .5s both;
+`;
+const BackgroundSnow = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:100%;
+    background: url(${snow}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionIn} 1s .5s both;
+`;
+const BackgroundCloud = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:100%;
+    background: url(${cloud}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionIn} 1s .5s both;
+`;
+const BackgroundMist = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:100%;
+    background: url(${mist}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionIn} 1s .5s both;
+`;
 const ForcastFiveDay = styled.div`
     display: flex;
     justify-content: space-between;
@@ -407,11 +499,12 @@ const ForcastDetailsItem = styled.div`
 `;
 const DetailsContainer = styled.div`
     position: absolute;
-    z-index: 100;
-    top: -3em;
+    z-index: 450;
+    top: -6em;
     margin: 0 auto;
-    maxWidth: 50%;
-    background-color: 'silver'
+    max-width: 50%;
+    background-color: silver;
+    text-align:right;
  `;
 const Detail = styled.div`
     display: flex;
@@ -425,23 +518,28 @@ const ComponentContainer = styled.div`
     justify-content: center;
   `;
   const WeatherContainer = styled.div`
+    margin: 2em;
+    position:relative
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     font-family: Raleway-Bold;
+    z-index:400;
+    border-radius: 5pt;
+    background-color: rgba(255, 255, 255, 0.8);
   `;
 
   const Loading = styled.div`
     width: 100%;
-    position:relative;
-    height:300px;
-    float:left;
+    height:100%;
+    position:fixed;
+    margin-top: -12.5em;
     z-index:500;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: rgba(0, 0, 0, 0.5);
   `;
 export default withStyles(styles)(Home);
 

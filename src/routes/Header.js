@@ -13,11 +13,12 @@ export default class Header extends React.Component{
     render(){
         const HeaderContainer = styled.div`
                 width:100%;
-                padding-top:5em;
-                padding-bottom:5em;
+                padding-top:5%;
+                padding-bottom:5%;
                 display: inline-flex;
                 justify-content: space-between;
                 background-color: white;
+                z-index:400;
             `;
         const Titles = styled.div`
                 width:15em;
@@ -57,7 +58,7 @@ export default class Header extends React.Component{
 
          `;
         return(
-            <div>
+            <div style={{zIndex: '1000'}}>
                 <MediaQuery query="(min-device-width: 1224px)">
                     <HeaderContainer>
                         <Titles>

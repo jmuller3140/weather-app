@@ -20,7 +20,7 @@ const Details = (props) => {
     return(
         <Container>
             <MoonFont>{hour}</MoonFont>
-            <img src={pictureSrc} />
+            <img src={pictureSrc} alt="weather-img"/>
             <div>{weather[0].description}</div>
             <div><MoonBold>{main.temp}&#176;</MoonBold></div>
             <ItemDisplay>

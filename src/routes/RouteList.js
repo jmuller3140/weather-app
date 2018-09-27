@@ -8,7 +8,9 @@ import Home from './Home';
 import './index.css';
 
 const Wrapper = styled.div`
-    .fade-enter {
+  height:70%;
+
+  .fade-enter {
       opacity: 0.01;
   }
 
@@ -29,9 +31,10 @@ const Wrapper = styled.div`
            position: relative;
       }
   section.route-section {
-        position: absolute;
+        position: relative;
         width: 100%;
-        top: 200px;
+        height:100%;
+        top: 0;
         left: 0;
       }
   @media (max-device-width: 1224px){
@@ -44,15 +47,11 @@ const Wrapper = styled.div`
 const RouteList = ({location, match}) => {
               return (
           <Wrapper>
-            <TransitionGroup>
-              <CSSTransition key={location.key} classNames='fade' timeout={{enter:1000, exit:1000}}>
               <section className="route-section">
                 <Switch location={location}>
                   <Route exact path="/" component={Home} />
                 </Switch>
                 </section>
-              </CSSTransition>
-            </TransitionGroup>
           </Wrapper>
                 )
 };

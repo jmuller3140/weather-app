@@ -12,9 +12,9 @@ import './index.css';
 ///////////////////////////////////////////////////////////
 const Routes = () => (
   <Router>
-    <div>
-      <Header/>
-      <RouteList/>
+    <div style={{height: 'inherit'}}>
+        <Header/>
+        <RouteList/>
     </div>
   </Router>
 );
