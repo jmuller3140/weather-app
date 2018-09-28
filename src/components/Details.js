@@ -4,8 +4,8 @@ import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 
 const Details = (props) => {
-    const {main, weather, clouds, wind, rain, snow, dt_txt_local} = props;
-    //rain and snow will not work in javascript due to a numeric value in its variable name
+    const {main, weather, clouds, wind, dt_txt_local} = props;
+    //props.rain and props.snow will not work in javascript due to a numeric value in its variable name
     //will keep in to see if there is a way to change in the future
     const pictureSrc = 'http://openweathermap.org/img/w/' + weather[0].icon + '.png';
     const date = new Date(dt_txt_local);

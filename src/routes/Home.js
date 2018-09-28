@@ -305,10 +305,10 @@ class Home extends React.Component {
                 resolve({tempArray: tempArray, getDetails: json.details.getDetails, onHoverBackgroundChange: json.details.onHoverBackgroundChange});
             }
             catch(err){
+                console.log(err.msg);
                 console.log("There was an error in getTempArray:" + err);
                 this.setState({isLoading: false});
                 this.setState({error: true});
-                reject({err: err});
             }
         })
     }
