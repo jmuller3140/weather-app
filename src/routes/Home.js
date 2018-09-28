@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styled, {keyframes} from 'styled-components';
-import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -514,7 +513,7 @@ const BackgroundRain = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:78%;
+    height:80%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 2s .5s both;
@@ -523,7 +522,7 @@ const BackgroundClear = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:78%;
+    height:80%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -532,7 +531,7 @@ const BackgroundSnow = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:78%;
+    height:80%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -541,7 +540,7 @@ const BackgroundCloud = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:78%;
+    height:80%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -550,7 +549,7 @@ const BackgroundMist = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:78%;
+    height:80%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;

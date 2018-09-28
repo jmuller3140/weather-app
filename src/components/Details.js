@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MediaQuery from 'react-responsive';
+import PropTypes from 'prop-types';
 
 const Details = (props) => {
     const {main, weather, clouds, wind, rain, snow, dt_txt_local} = props;
@@ -58,6 +59,15 @@ const Details = (props) => {
             </MediaQuery>
         </div>
         )
+}
+Details.propTypes = {
+    main: PropTypes.object,
+    weather: PropTypes.array,
+    clouds: PropTypes.object,
+    wind: PropTypes.object,
+    rain: PropTypes.object,
+    snow: PropTypes.object,
+    dt_txt_local: PropTypes.string
 }
     const Container = styled.div`
         width: 150px;

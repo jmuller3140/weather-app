@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import MediaQuery from 'react-responsive';
+import PropTypes from 'prop-types';
 
 const Day = (props) => {
     const {forcastDay, maxTemp, minTemp, getDetails, hour, weatherIcon, weatherDescription, onHover} = props;
@@ -32,6 +33,16 @@ const Day = (props) => {
             </MediaQuery>
         </div>
         )
+}
+Day.propTypes = {
+    forcastDay: PropTypes.string,
+    maxTemp: PropTypes.number,
+    minTemp: PropTypes.number,
+    getDetails: PropTypes.func,
+    hour: PropTypes.array,
+    weatherIcon: PropTypes.string,
+    weatherDescription: PropTypes.string,
+    onHover: PropTypes.func
 }
     const TransitionIn = keyframes`
         0% { color: transparent; }
