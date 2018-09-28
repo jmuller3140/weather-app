@@ -5,7 +5,6 @@ import MediaQuery from 'react-responsive';
 const Day = (props) => {
     const {forcastDay, maxTemp, minTemp, getDetails, hour, weatherIcon, weatherDescription, onHover} = props;
     const pictureSrc = 'http://openweathermap.org/img/w/' + weatherIcon + '.png';
-    console.log(onHover);
     const day = forcastDay.slice(0,3);
     return(
         <div>

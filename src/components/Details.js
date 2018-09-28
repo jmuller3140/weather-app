@@ -4,15 +4,17 @@ import MediaQuery from 'react-responsive';
 
 const Details = (props) => {
     const {main, weather, clouds, wind, rain, snow, dt_txt_local} = props;
+    //rain and snow will not work in javascript due to a numeric value in its variable name
+    //will keep in to see if there is a way to change in the future
     const pictureSrc = 'http://openweathermap.org/img/w/' + weather[0].icon + '.png';
     const date = new Date(dt_txt_local);
     let hour = date.getHours(date);
-    if(parseInt(hour) >= 12){
-        if(parseInt(hour) !== 12){
-            hour = parseInt(hour) - 12
+    if(parseInt(hour, 10) >= 12){
+        if(parseInt(hour, 10) !== 12){
+            hour = parseInt(hour, 10) - 12
         }
         hour = hour.toString() + " PM";
-    }else if(parseInt(hour) < 1){
+    }else if(parseInt(hour, 10) < 1){
         hour = "12 AM";
     }
     else{
@@ -31,6 +33,9 @@ const Details = (props) => {
                         <div>Sea lvl: <MoonFont>{main.sea_level}</MoonFont> hPa</div>
                         <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
                         <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
+                        <div>Cloudiness: <MoonFont>{clouds.all}%</MoonFont></div>
+                        <div>Wind Speed: <MoonFont>{wind.speed}</MoonFont></div>
+                        <div>Wind Direction: <MoonFont>{wind.deg}</MoonFont></div>
                     </ItemDisplay>
                 </Container>
             </MediaQuery>
@@ -45,6 +50,9 @@ const Details = (props) => {
                         <div>Sea lvl: <MoonFont>{main.sea_level}</MoonFont> hPa</div>
                         <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
                         <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
+                        <div>Cloudiness: <MoonFont>{clouds.all}%</MoonFont></div>
+                        <div>Wind Speed: <MoonFont>{wind.speed}</MoonFont></div>
+                        <div>Wind Direction: <MoonFont>{wind.deg}</MoonFont></div>
                     </ItemDisplay>
                 </ContainerMobile>
             </MediaQuery>
@@ -53,7 +61,7 @@ const Details = (props) => {
 }
     const Container = styled.div`
         width: 150px;
-        height: 200px;
+        height: 250px;
         display:flex;
         flex-direction:column;
         margin:1em;
@@ -65,6 +73,7 @@ const Details = (props) => {
         padding-top:.5em;
     `;
     const ItemDisplay = styled.div`
+        padding-top:1em;
         display:flex;
         flex-direction: column;
         align-items: left;
@@ -79,7 +88,7 @@ const Details = (props) => {
 
     const ContainerMobile = styled.div`
         width: 150px;
-        height: 200px;
+        height: 250px;
         margin: .2em;
         display:flex;
         flex-direction:column;

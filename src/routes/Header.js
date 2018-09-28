@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
 import styled from 'styled-components';
@@ -48,15 +47,6 @@ export default class Header extends React.Component{
                 letter-spacing: .1em
                 text-align:center;
              `;
-         const StyledLink = styled(Link)`
-                text-decoration: none;
-                color:silver;
-                padding:.6em;
-                &:hover{
-                    color:white;
-                }
-
-         `;
         return(
             <div style={{zIndex: '1000'}}>
                 <MediaQuery query="(min-device-width: 1224px)">

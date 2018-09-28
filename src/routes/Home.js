@@ -4,8 +4,6 @@ import styled, {keyframes} from 'styled-components';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import request from 'superagent';
 import moment from 'moment-timezone';
@@ -13,7 +11,6 @@ import Spinner from 'react-spinkit';
 import MediaQuery from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
 
-import Header from './Header';
 import Footer from './Footer';
 import Day from '../components/Day';
 import Details from '../components/Details';
@@ -98,7 +95,7 @@ class Home extends React.Component {
 /////// cancels weather details screen /////////
 ////////////////////////////////////////////////
     onHoverBackgroundChange(e, url){
-        const num = parseInt(url.slice(0,2));
+        const num = parseInt(url.slice(0,2), 10);
         let picture = "";
         if(num < 2){
             picture = 'clear';
@@ -205,8 +202,6 @@ class Home extends React.Component {
         return new Promise((resolve, reject) => {
             let address = "http://api.timezonedb.com/v2.1/get-time-zone";
             const {lat, lon} = coord;
-            let that=this;
-            console.log(json);
             request
             .get(address)
             .query({'key': 'NKTLFL9PDN1F'})
@@ -234,7 +229,6 @@ class Home extends React.Component {
             let min_temp = 0;
             let weatherIcon = "";
             let weatherDescription = "";
-            console.log(json);
             for(var i = 0; i < json.details.cnt; i++){
                 const date = moment.unix(json.details.list[i].dt).utc();
                 let convertedDate = date.tz(json.timezone).format('YYYY-MM-DD HH:mm');
@@ -249,9 +243,7 @@ class Home extends React.Component {
                 if(i === 0 ){
                     if(convertedHour > 13){
                         weatherIcon = json.details.list[i].weather[0].icon;
-                        console.log(weatherIcon);
                         weatherDescription = json.details.list[i].weather[0].description;
-                        console.log(weatherDescription);
                     }
                     previousDayString = forcastDay;
                     max_temp = json.details.list[i].main.temp_max;
@@ -282,7 +274,6 @@ class Home extends React.Component {
 /////// creates days from getTempArray /////////
 ////////////////////////////////////////////////
     getForcast(forcastInfo) {
-        console.log(forcastInfo);
         return new Promise((resolve, reject) => {
             let key = 0;
             let forcast = forcastInfo.tempArray.map( day => {
@@ -323,8 +314,6 @@ class Home extends React.Component {
       value: this.state.value,
       onChange: this.handleChange
     };
-
-    const {suggestions} = this.state;
     return (
         <div>
          <MediaQuery query="(min-width: 1224px)">
