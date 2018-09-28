@@ -373,7 +373,7 @@ class Home extends React.Component {
                 )}
             {this.state.isLoading && (
                         <Loading>
-                            <Spinner name="ball-spin-fade-loader" color="black"/>
+                            <Spinner name="ball-spin-fade-loader" fadeIn="quarter" color="black"/>
                         </Loading>
                     )}
             {this.state.backgroundImg === "clear" && (
@@ -440,6 +440,11 @@ class Home extends React.Component {
                         </DetailsContainerMobile>
                     </ForcastDisplayContainer>
                         )}
+                    {this.state.isLoading && (
+                        <Loading>
+                            <Spinner name="ball-spin-fade-loader" fadeIn="quarter" color="black"/>
+                        </Loading>
+                    )}
                 </ComponentContainer>
           </MediaQuery>
         <Footer/>
@@ -616,7 +621,8 @@ const ComponentContainer = styled.div`
     width: 100%;
     height:100%;
     position:fixed;
-    margin-top: -10.5%;
+    top:0;
+    left: 0;
     z-index:500;
     display: flex;
     align-items: center;
