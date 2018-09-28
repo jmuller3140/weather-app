@@ -474,21 +474,24 @@ class Home extends React.Component {
                 <ComponentContainer>
                     <WeatherContainerMobile>
                         <p>What weather would you like to see?</p>
-                        <Autosuggest
-                                renderInputComponent={this.renderInputComponent}
-                                suggestions={this.state.suggestions}
-                                onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-                                onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-                                getSuggestionValue={this.getSuggestionValue}
-                                renderSuggestion={this.renderSuggestion}
-                                inputProps={inputProps}
-                                theme={{
-                                    container: classes.container,
-                                    suggestionsContainerOpen: classes.suggestionsContainerOpen,
-                                    suggestionsList: classes.suggestionsList,
-                                    suggestion: classes.suggestion,
-                                }}
-                        />
+                        <SuggestionContainer>
+                            <Autosuggest
+                                    renderInputComponent={this.renderInputComponent}
+                                    suggestions={this.state.suggestions}
+                                    onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+                                    onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+                                    getSuggestionValue={this.getSuggestionValue}
+                                    renderSuggestion={this.renderSuggestion}
+                                    inputProps={inputProps}
+                                    theme={{
+                                        container: classes.containerMobile,
+                                        suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                                        suggestionsList: classes.suggestionsList,
+                                        suggestion: classes.suggestion,
+                                    }}
+                            />
+                            <Button color="primary" variant="text" onClick={(e)=>{this.onClickTempChange(e)}} size="small" disableRipple={true} disableFocusRipple={true} className={classes.buttonUnits}>{this.state.units}&#176;</Button>
+                        </SuggestionContainer>
                         <Button variant="outlined" color="primary" onClick={this.getWeather} className={classes.button}>Submit</Button>
                         { this.state.forcastDisplay.length !== 0 && (
                             <ForcastDisplayMobile>
@@ -510,6 +513,14 @@ class Home extends React.Component {
                         <Loading>
                             <Spinner name="ball-spin-fade-loader" fadeIn="quarter" color="black"/>
                         </Loading>
+                    )}
+                    {this.state.error && (
+                        <ErrorContainer>
+                            <ErrorPopupMobile>
+                                <Button onClick={(e) => this.onClickCancel("Error", e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
+                                <ErrorMessage>There was an error. Please try again later.</ErrorMessage>
+                            </ErrorPopupMobile>
+                        </ErrorContainer>
                     )}
                 </ComponentContainer>
           </MediaQuery>
@@ -536,6 +547,14 @@ const styles = {
     marginBottom: '.5em',
     marginLeft: '2em'
   },
+  containerMobile: {
+    position: 'relative',
+    color: 'black',
+    width: '16em',
+    marginBottom: '.5em',
+    marginLeft: '2em'
+  },
+
   suggestionsContainerOpen: {
     position: 'absolute',
     zIndex: 1,
@@ -819,6 +838,16 @@ const DetailsContainerMobile = styled.div`
     max-width: 90%;
     background-color: white;
     text-align:right;
+ `;
+ const ErrorPopupMobile = styled.div`
+    position: absolute;
+    z-index: 450;
+    max-width: 50%;
+    font-size:10pt;
+    background: rgb(245,245,245);
+    border-radius: 5px;
+    text-align:right;
+    font-family: Raleway-Regular;
  `;
 export default withStyles(styles)(Home);
 
