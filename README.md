@@ -7,9 +7,10 @@
   Step 3: 'npm install'<br/>
   Step 4: npm start <br/>
   In the .env.example I have provided the URLs for the free apis. The only thing needed to run is a the free appIds. You can get it from:<br/>https://openweathermap.org/api<br/>
-and<br/>https://timezonedb.com/register
+and<br/>https://timezonedb.com/register<br/>
+The reason why I ended up using another api was to get the timezone for each city's weather information I was getting back. OWM does not provided the timezone or offset of the time in reference to UTC (at least not from what I saw)<br/>
 
-    Note: I had to change the npm scripts command to 'react-scripts --max_old_space_size=4096 start' because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).<br/>
+   Note: I had to change the npm scripts command to 'react-scripts --max_old_space_size=4096 start' because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).<br/>
   Everything should work :D
 
 ## Thought Process
