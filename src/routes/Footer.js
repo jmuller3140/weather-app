@@ -6,6 +6,31 @@ import styled from 'styled-components';
 
 const Footer = () => {
 
+        return(
+        <div>
+            <MediaQuery query="(min-device-width: 1224px)">
+                <FooterContainer>
+                    <Copyright>
+                        Made by James Muller
+                    </Copyright><br/>
+                    <Copyright>
+                        Made in 2018 <FontAwesomeIcon icon={faCopyright}/>
+                    </Copyright>
+                </FooterContainer>
+            </MediaQuery>
+            <MediaQuery query="(max-device-width: 1224px)">
+                <FooterContainerMobile>
+                    <CopyrightMobile>
+                        Made by James Muller
+                    </CopyrightMobile>
+                    <CopyrightMobile>
+                        Made in 2018 <FontAwesomeIcon icon={faCopyright}/>
+                    </CopyrightMobile>
+                </FooterContainerMobile>
+            </MediaQuery>
+        </div>
+            )
+}
     const FooterContainer = styled.div`
         position:relative;
         width:100%;
@@ -35,30 +60,4 @@ const Footer = () => {
         color:grey;
         font-family:Moon-Light;
     `;
-
-        return(
-        <div>
-            <MediaQuery query="(min-device-width: 1224px)">
-                <FooterContainer>
-                    <Copyright>
-                        Made by James Muller
-                    </Copyright><br/>
-                    <Copyright>
-                        Made in 2018 <FontAwesomeIcon icon={faCopyright}/>
-                    </Copyright>
-                </FooterContainer>
-            </MediaQuery>
-            <MediaQuery query="(max-device-width: 1224px)">
-                <FooterContainerMobile>
-                    <CopyrightMobile>
-                        Made by James Muller
-                    </CopyrightMobile>
-                    <CopyrightMobile>
-                        Made in 2018 <FontAwesomeIcon icon={faCopyright}/>
-                    </CopyrightMobile>
-                </FooterContainerMobile>
-            </MediaQuery>
-        </div>
-            )
-    }
 export default Footer

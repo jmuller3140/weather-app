@@ -24,7 +24,7 @@ const Details = (props) => {
         <div>
             <MediaQuery query="(min-device-width: 1224px)">
                 <Container>
-                    <MoonFont>{hour}</MoonFont>
+                    <MoonFont>{hour}</MoonFont><br/>
                     <img src={pictureSrc} alt="weather-img"/>
                     <div>{weather[0].description}</div>
                     <div><MoonBold>{main.temp}&#176;</MoonBold></div>
@@ -34,14 +34,14 @@ const Details = (props) => {
                         <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
                         <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
                         <div>Cloudiness: <MoonFont>{clouds.all}%</MoonFont></div>
-                        <div>Wind Speed: <MoonFont>{wind.speed}</MoonFont></div>
-                        <div>Wind Direction: <MoonFont>{wind.deg}</MoonFont></div>
+                        <div>Wind Speed: <MoonFont>{wind.speed} MPH</MoonFont></div>
+                        <div>Wind Dir: <MoonFont>{wind.deg}&#176;</MoonFont></div>
                     </ItemDisplay>
                 </Container>
             </MediaQuery>
             <MediaQuery query="(max-device-width: 1224px)">
                 <ContainerMobile>
-                    <MoonFont>{hour}</MoonFont>
+                    <MoonFont>{hour}</MoonFont><br/>
                     <img src={pictureSrc} alt="weather-img"/>
                     <div>{weather[0].description}</div>
                     <div><MoonBold>{main.temp}&#176;</MoonBold></div>
@@ -51,8 +51,8 @@ const Details = (props) => {
                         <div>Ground lvl: <MoonFont>{main.grnd_level}</MoonFont> hPa</div>
                         <div>Humidity: <MoonFont>{main.humidity}%</MoonFont></div>
                         <div>Cloudiness: <MoonFont>{clouds.all}%</MoonFont></div>
-                        <div>Wind Speed: <MoonFont>{wind.speed}</MoonFont></div>
-                        <div>Wind Direction: <MoonFont>{wind.deg}</MoonFont></div>
+                        <div>Wind Speed: <MoonFont>{wind.speed} MPH</MoonFont></div>
+                        <div>Wind Dir: <MoonFont>{wind.deg}&#176;</MoonFont></div>
                     </ItemDisplay>
                 </ContainerMobile>
             </MediaQuery>
@@ -65,7 +65,7 @@ const Details = (props) => {
         display:flex;
         flex-direction:column;
         margin:1em;
-        font-family: Raleway-Regular;
+        font-family: Moon-Light;
         font-size: 10pt;
         border-radius: 5px;
         border: 1px solid grey;
@@ -78,6 +78,7 @@ const Details = (props) => {
         flex-direction: column;
         align-items: left;
         text-align:left;
+        font-family:Raleway-Regular;
     `;
     const MoonFont = styled.span`
         font-family: "Moon-Light";
@@ -92,7 +93,7 @@ const Details = (props) => {
         margin: .2em;
         display:flex;
         flex-direction:column;
-        font-family: Raleway-Regular;
+        font-family: Moon-Light;
         font-size: 10pt;
         border-radius: 5px;
         border: 1px solid grey;

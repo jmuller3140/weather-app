@@ -168,12 +168,12 @@ class Home extends React.Component {
         //units = metric for
         //no parms for K
         //units imperial for F
-        let address = "http://api.openweathermap.org/data/2.5/forecast";
+        let address = process.env.REACT_APP_URL_OWM_FIVE;
         let that=this;
         request
         .get(address)
         .query({'id': this.cityId})
-        .query({'APPID': 'd10ac900e1d470d9e0b26931e17d30f0'})
+        .query({'APPID': process.env.REACT_APP_OWM_APPID})
         .query({'units': 'imperial'})
         .set('Accept', 'application/json')
         .then( res => {
@@ -184,6 +184,9 @@ class Home extends React.Component {
                 that.setState({forcastDisplay: data});
                 that.setState({isLoading: false});
             })
+        })
+        .catch( err => {
+            console.log("There was an error in getWeather:" + err);
         });
     }
 ////////////////////////////////////////////////
@@ -200,11 +203,11 @@ class Home extends React.Component {
 ////////////////////////////////////////////////
     setTimeZone(coord, json){
         return new Promise((resolve, reject) => {
-            let address = "http://api.timezonedb.com/v2.1/get-time-zone";
+            let address = process.env.REACT_APP_URL_TIMEZONEDB;
             const {lat, lon} = coord;
             request
             .get(address)
-            .query({'key': 'NKTLFL9PDN1F'})
+            .query({'key': process.env.REACT_APP_TIMEZONEDB_APPID})
             .query({'by': 'position'})
             .query({'lat': lat})
             .query({'lng': lon})
@@ -214,6 +217,10 @@ class Home extends React.Component {
                 let timeZoneDetails = JSON.parse(res.text);
                 let timezone = timeZoneDetails.zoneName;
                 resolve({timezone: timezone, details: json})
+            })
+            .catch(err => {
+                console.log("There was an error in setTimeZone:" + err);
+                reject({err:err})
             });
         })
     }
@@ -229,7 +236,8 @@ class Home extends React.Component {
             let min_temp = 0;
             let weatherIcon = "";
             let weatherDescription = "";
-            for(var i = 0; i < json.details.cnt; i++){
+            try{
+                for(var i = 0; i < json.details.cnt; i++){
                 const date = moment.unix(json.details.list[i].dt).utc();
                 let convertedDate = date.tz(json.timezone).format('YYYY-MM-DD HH:mm');
                 json.details.list[i].dt_txt_local = convertedDate.toString();
@@ -266,8 +274,13 @@ class Home extends React.Component {
                     dayArray.push(json.details.list[i]);
                 }
             }
-            tempArray.push({hour: dayArray, maxTemp: max_temp, minTemp: min_temp, forcastDay: previousDayString, weatherIcon: weatherIcon, weatherDescription: weatherDescription});
-            resolve({tempArray: tempArray, getDetails: json.details.getDetails, onHoverBackgroundChange: json.details.onHoverBackgroundChange});
+                tempArray.push({hour: dayArray, maxTemp: max_temp, minTemp: min_temp, forcastDay: previousDayString, weatherIcon: weatherIcon, weatherDescription: weatherDescription});
+                resolve({tempArray: tempArray, getDetails: json.details.getDetails, onHoverBackgroundChange: json.details.onHoverBackgroundChange});
+            }
+            catch(err){
+                console.log("There was an error in getTempArray:" + err);
+                reject({err: err});
+            }
         })
     }
 ////////////////////////////////////////////////
@@ -275,13 +288,14 @@ class Home extends React.Component {
 ////////////////////////////////////////////////
     getForcast(forcastInfo) {
         return new Promise((resolve, reject) => {
-            let key = 0;
-            let forcast = forcastInfo.tempArray.map( day => {
+            try{
+                let key = 0;
+                let forcast = forcastInfo.tempArray.map( day => {
                 let props = {key: key, getDetails: forcastInfo.getDetails, hour: day.hour, maxTemp: day.maxTemp, minTemp: day.minTemp, forcastDay: day.forcastDay, weatherIcon: day.weatherIcon, weatherDescription: day.weatherDescription, onHover: forcastInfo.onHoverBackgroundChange};
                 key++;
                 return (<Day {...props} />)
                 });
-            resolve(
+                resolve(
                     <div>
                         <MediaQuery query="(min-device-width: 1224px)">
                             <ForcastFiveDay>
@@ -295,6 +309,11 @@ class Home extends React.Component {
                         </MediaQuery>
                     </div>
                     )
+                }
+                catch(err){
+                console.log("There was an error in getForcast:" + err);
+                reject(<div></div>)
+            }
         })
     }
 ////////////////////////////////////////////////
@@ -319,7 +338,7 @@ class Home extends React.Component {
          <MediaQuery query="(min-width: 1224px)">
             <ComponentContainer>
            <WeatherContainer>
-            <p>What weather would you like to see?</p>
+            <p>Where would you to check the weather?</p>
             <Autosuggest
                     renderInputComponent={this.renderInputComponent}
                     suggestions={this.state.suggestions}
