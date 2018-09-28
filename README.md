@@ -1,12 +1,12 @@
 ## The Weather App
   An application that can tell the 5 day weather forcast for a given city and/or region
 ## How to Buildit ;)
-  The Weather App was built using React.js bootstrapped using create-react-app, using npm to manage my project and its node modules
-  Step 1: NPM environment is up and running
-  Step 2: Pull project from Github
-  Step 3: 'npm install'
-  Step 4: npm start 
-    Note: I had to change the npm scripts command to 'react-scripts --max_old_space_size=4096 start' because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).
+  The Weather App was built using React.js bootstrapped using create-react-app, using npm to manage my project and its node modules:<br/>
+  Step 1: NPM environment is up and running<br/>
+  Step 2: Pull project from Github<br/>
+  Step 3: 'npm install'<br/>
+  Step 4: npm start <br/>
+    Note: I had to change the npm scripts command to 'react-scripts --max_old_space_size=4096 start' because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).<br/>
   Everything should work :D
 
 ## Thought Process
@@ -21,8 +21,7 @@
   
   
 ## With more time I would...
-  1) Try to display the information in a more aesthetically pleasing. All the other weather apps I saw graph the increase of decrease in temperature. It would be cool to make graphs over time for the information at the very least.
-  2) Add a Celcius and/or Kelvin feature.
-  3) Figure out a more accurate way to calculate what logo I need to show on the 5 day panels.
+  1. Try to display the information in a more aesthetically pleasing. All the other weather apps I saw graph the increase of decrease in temperature. It would be cool to make graphs over time for the information at the very least.
+  2. Figure out a more accurate way to calculate what logo I need to show on the 5 day panels.
   
   
