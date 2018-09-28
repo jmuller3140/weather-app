@@ -35,7 +35,7 @@ class Home extends React.Component {
         this.getTempArray = this.getTempArray.bind(this);
         this.setTimeZone = this.setTimeZone.bind(this);
         this.onHoverBackgroundChange = this.onHoverBackgroundChange.bind(this);
-        this.state = { value: '', suggestions: [], suggestionsList: [], forcastDisplay: [], forcastIndepth: "", timezone: "", isLoading: false, backgroundImg: ""}
+        this.state = { value: '', suggestions: [], suggestionsList: [], forcastDisplay: [], forcastIndepth: "", timezone: "", isLoading: false, backgroundImg: "", backgroundPrevious: ""}
         this.cityId = 0;
         this.lastInputLength = 0;
         this.timezone = "";
@@ -107,6 +107,7 @@ class Home extends React.Component {
         }else if(num === 50){
             picture = 'mist';
         }
+        this.setState({backgroundPrevious: this.state.backgroundImg})
         this.setState({backgroundImg: picture});
     }
 ////////////////////////////////////////////////
@@ -164,6 +165,9 @@ class Home extends React.Component {
     getWeather = (e) => {
         e.preventDefault();
         this.setState({isLoading: true});
+        this.setState({forcastDisplay: []});
+        this.setState({backgroundImg: ""});
+        this.setState({backgroundPrevious: ""});
         //units = metric for
         //no parms for K
         //units imperial for F
@@ -376,29 +380,53 @@ class Home extends React.Component {
                         </Loading>
                     )}
             {this.state.backgroundImg === "clear" && (
-                <BackgroundClear>
-                </BackgroundClear>
+                <BackgroundClearIn>
+                </BackgroundClearIn>
                 )
             }
             {this.state.backgroundImg === "rain" && (
-                <BackgroundRain>
-                </BackgroundRain>
+                <BackgroundRainIn>
+                </BackgroundRainIn>
                 )
             }
             {this.state.backgroundImg === "mist" && (
-                <BackgroundMist>
-                </BackgroundMist>
+                <BackgroundMistIn>
+                </BackgroundMistIn>
                 )
             }
             {this.state.backgroundImg === "snow" && (
-
-                <BackgroundSnow>
-                </BackgroundSnow>
+                <BackgroundSnowIn>
+                </BackgroundSnowIn>
                 )
             }
             {this.state.backgroundImg === "cloud" && (
-                <BackgroundCloud>
-                </BackgroundCloud>
+                <BackgroundCloudIn>
+                </BackgroundCloudIn>
+                )
+            }
+            {this.state.backgroundPrevious === "clear" && (
+                <BackgroundClearOut>
+                </BackgroundClearOut>
+                )
+            }
+            {this.state.backgroundPrevious === "rain" && (
+                <BackgroundRainOut>
+                </BackgroundRainOut>
+                )
+            }
+            {this.state.backgroundPrevious === "mist" && (
+                <BackgroundMistOut>
+                </BackgroundMistOut>
+                )
+            }
+            {this.state.backgroundPrevious === "snow" && (
+                <BackgroundSnowOut>
+                </BackgroundSnowOut>
+                )
+            }
+            {this.state.backgroundPrevious === "cloud" && (
+                <BackgroundCloudOut>
+                </BackgroundCloudOut>
                 )
             }
             </ComponentContainer>
@@ -509,50 +537,99 @@ const TransitionIn = keyframes`
         100% { opacity: 1; }
         }
     `;
-const BackgroundRain = styled.div`
+const TransitionOut = keyframes`
+        0% { opacity: 1;}
+        100% { opacity: 0;}
+    `;
+const BackgroundRainIn = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
     height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 2s .5s both;
+    animation: ${TransitionIn} 2s 0s both;
 `;
-const BackgroundClear = styled.div`
+const BackgroundClearIn = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
     height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s .5s both;
+    animation: ${TransitionIn} 2s 0s both;
 `;
-const BackgroundSnow = styled.div`
+const BackgroundSnowIn = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
     height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s .5s both;
+    animation: ${TransitionIn} 2s 0s both;
 `;
-const BackgroundCloud = styled.div`
+const BackgroundCloudIn = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
     height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s .5s both;
+    animation: ${TransitionIn} 2s 0s both;
 `;
-const BackgroundMist = styled.div`
+const BackgroundMistIn = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
     height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s .5s both;
+    animation: ${TransitionIn} 2s 0s both;
+`;
+const BackgroundRainOut = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:78%;
+    background: url(${rain}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionOut} 2s 0s both;
+`;
+const BackgroundClearOut = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:78%;
+    background: url(${clear}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionOut} 2s 0s both;
+`;
+const BackgroundSnowOut = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:78%;
+    background: url(${snow}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionOut} 2s 0s both;
+`;
+const BackgroundCloudOut = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:78%;
+    background: url(${cloud}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionOut} 2s 0s both;
+`;
+const BackgroundMistOut = styled.div`
+    position: absolute;
+    z-index: 300;
+    width:100%;
+    height:78%;
+    background: url(${mist}) center fixed no-repeat;
+    background-size: cover;
+    animation: ${TransitionOut} 2s 0s both;
 `;
 const ForcastDisplayContainer = styled.div`
     z-index:450;
