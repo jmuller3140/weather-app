@@ -296,12 +296,12 @@ class Home extends React.Component {
                 });
                 resolve(
                     <div>
-                        <MediaQuery query="(min-device-width: 1224px)">
+                        <MediaQuery query="(min-width: 1224px)">
                             <ForcastFiveDay>
                                 {forcast}
                             </ForcastFiveDay>
                         </MediaQuery>
-                        <MediaQuery query="(max-device-width: 1224px)">
+                        <MediaQuery query="(max-width: 1224px)">
                             <ForcastFiveDayMobile>
                                 {forcast}
                             </ForcastFiveDayMobile>

@@ -19,11 +19,11 @@
     "react-scripts": "1.1.5",
     "react-spinkit": "^3.0.0",
     "styled-components": "^3.4.9",
-    "superagent": "^4.0.0-beta.5"
+    "superagent": "^3.8.2"
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
-    "build": "react-scripts build",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
