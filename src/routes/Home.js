@@ -10,7 +10,7 @@ import Spinner from 'react-spinkit';
 import MediaQuery from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
 
-import Footer from './Footer';
+import Footer from '../components/Footer';
 import Day from '../components/Day';
 import Details from '../components/Details';
 import jsonData from '../json/citylist.json';

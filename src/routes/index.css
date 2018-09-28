@@ -1,38 +1,4 @@
 @font-face {
-    font-family: Zwizz-Bold;
-    src: local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.woff) format('woff');
-    src: local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.woff2) format('woff2').
-         local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.ttf) format('truetype'),
-         local('Zwizz-Bold'), url(../fonts/Zwizz-Bold.otf) format('otf');
-}
-@font-face {
-    font-family: Zwizz-Regular;
-    src: local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.woff) format('woff');
-    src:  local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.woff2) format('woff2')
-         local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.ttf) format('truetype'),
-         local('Zwizz-Regular'), url(../fonts/Zwizz-Regular.otf) format('otf');
-}
-@font-face {
-    font-family: Ikaros-Light;
-    src: local('Ikaros-Light'), url(../fonts/Ikaros-Light.woff) format('woff');
-    src: local('Ikaros-Light'), url(../fonts/Ikaros-Light.woff2) format('woff2')
-    local('Ikaros-Light'), url(../fonts/Ikaros-Light.otf) format('otf');
-}
-@font-face {
-    font-family: Ikaros-Regular;
-    src: local('Ikaros-Regular'), url(../fonts/Ikaros-Regular.woff) format('woff');
-    src: local('Ikaros-Regular'), url(../fonts/Ikaros-Regular.woff2) format('woff2'),
-    local('Ikaros-Regular'), url(../fonts/Ikaros-Regular.otf) format('otf');
-}
-
-@font-face {
-    font-family: Dense-Regular;
-    src: local('Dense-Regular'), url(../fonts/Dense-Regular.woff) format('woff');
-    src: local('Dense-Regular'), url(../fonts/Dense-Regular.woff2) format('woff2'),
-    local('Dense-Regular'), url(../fonts/Dense-Regular.ttf) format('truetype')
-    local('Dense-Regular'), url(../fonts/Dense-Regular.otf) format('otf');
-}
-@font-face {
     font-family: Raleway-Bold;
     src: local('Raleway-Bold'), url(../fonts/Raleway-Bold.woff) format('woff');
     src: local('Raleway-Bold'), url(../fonts/Raleway-Bold.woff2) format('woff2'),
