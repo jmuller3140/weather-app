@@ -22,7 +22,9 @@ The reason why I ended up using another api was to get the timezone for each cit
   3. The biggest challenge I had was converting the UTC times to the time of the country. OWM gave me the times of the city in UTC but didn't tell me the timezone that the city was in so I could get the time offset. I ended up calling another API TimezoneDB, sending it the lat and long coordinates of the city queried so I could get timezone and hence, the offset.
   
 ## Tradeoffs
-  
+  1. Because The Weather App is a SPA, the user will have to download a larger bundle. This could be solved by code splitting. 
+  2. SEO could also be a potential issue with a full SPA, this could be solved by server side rendering.  If a web crawler does not/cannot does not use javascript, it won't see the site. 
+  3. Similar to 2, if the user has javascript disabled, they wont be able to see the site.
   
 ## With more time I would...
   1. Try to display the information in a more aesthetically pleasing. All the other weather apps I saw graph the increase of decrease in temperature. It would be cool to make graphs over time for the information at the very least.
