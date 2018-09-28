@@ -548,7 +548,7 @@ const BackgroundRainIn = styled.div`
     height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 2s 0s both;
+    animation: ${TransitionIn} 1s 0s both;
 `;
 const BackgroundClearIn = styled.div`
     position: absolute;
@@ -557,7 +557,7 @@ const BackgroundClearIn = styled.div`
     height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 2s 0s both;
+    animation: ${TransitionIn} 1s 0s both;
 `;
 const BackgroundSnowIn = styled.div`
     position: absolute;
@@ -566,7 +566,7 @@ const BackgroundSnowIn = styled.div`
     height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 2s 0s both;
+    animation: ${TransitionIn} 1s 0s both;
 `;
 const BackgroundCloudIn = styled.div`
     position: absolute;
@@ -575,7 +575,7 @@ const BackgroundCloudIn = styled.div`
     height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 2s 0s both;
+    animation: ${TransitionIn} 1s 0s both;
 `;
 const BackgroundMistIn = styled.div`
     position: absolute;
@@ -584,7 +584,7 @@ const BackgroundMistIn = styled.div`
     height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 2s 0s both;
+    animation: ${TransitionIn} 1s 0s both;
 `;
 const BackgroundRainOut = styled.div`
     position: absolute;
@@ -593,7 +593,7 @@ const BackgroundRainOut = styled.div`
     height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 2s 0s both;
+    animation: ${TransitionOut} 1s 0s both;
 `;
 const BackgroundClearOut = styled.div`
     position: absolute;
@@ -602,7 +602,7 @@ const BackgroundClearOut = styled.div`
     height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 2s 0s both;
+    animation: ${TransitionOut} 1s 0s both;
 `;
 const BackgroundSnowOut = styled.div`
     position: absolute;
@@ -611,7 +611,7 @@ const BackgroundSnowOut = styled.div`
     height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 2s 0s both;
+    animation: ${TransitionOut} 1s 0s both;
 `;
 const BackgroundCloudOut = styled.div`
     position: absolute;
@@ -620,7 +620,7 @@ const BackgroundCloudOut = styled.div`
     height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 2s 0s both;
+    animation: ${TransitionOut} 1s 0s both;
 `;
 const BackgroundMistOut = styled.div`
     position: absolute;
@@ -629,7 +629,7 @@ const BackgroundMistOut = styled.div`
     height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 2s 0s both;
+    animation: ${TransitionOut} 1s 0s both;
 `;
 const ForcastDisplayContainer = styled.div`
     z-index:450;
