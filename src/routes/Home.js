@@ -502,7 +502,7 @@ class Home extends React.Component {
                     {this.state.forcastIndepth !== "" && (
                     <ForcastDisplayContainer>
                         <DetailsContainerMobile>
-                            <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
+                            <Button onClick={(e) => this.onClickCancel("Forcast", e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
                             <Detail>
                                 {this.state.forcastIndepth}
                             </Detail>
