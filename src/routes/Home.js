@@ -31,11 +31,12 @@ class Home extends React.Component {
         this.handleSuggestionsFetchRequested = this.handleSuggestionsFetchRequested.bind(this);
         this.handleSuggestionsClearRequested = this.handleSuggestionsClearRequested.bind(this);
         this.getDetails = this.getDetails.bind(this);
-        this.onClickDetailsCancel = this.onClickDetailsCancel.bind(this);
+        this.onClickCancel = this.onClickCancel.bind(this);
         this.getTempArray = this.getTempArray.bind(this);
         this.setTimeZone = this.setTimeZone.bind(this);
         this.onHoverBackgroundChange = this.onHoverBackgroundChange.bind(this);
-        this.state = { value: '', suggestions: [], suggestionsList: [], forcastDisplay: [], forcastIndepth: "", timezone: "", isLoading: false, backgroundImg: "", backgroundPrevious: ""}
+        this.state = { value: '', suggestions: [], forcastDisplay: [], forcastIndepth: "", timezone: "", isLoading: false, backgroundImg: "", backgroundPrevious: "", error: false, units: "F"}
+        this.suggestionsList = [];
         this.cityId = 0;
         this.lastInputLength = 0;
         this.timezone = "";
@@ -82,12 +83,25 @@ class Home extends React.Component {
 ////////////////////////////////////////////////
 /////// cancels weather details screen /////////
 ////////////////////////////////////////////////
-    onClickDetailsCancel(action, e){
-        if(action){
+    onClickCancel(action, e){
+        if(action === "Forcast"){
             this.setState({forcastIndepth: ""});
+        }else if(action === "Error"){
+            this.setState({error: false});
         }
     else{
             e.stopPropagation();
+        }
+    }
+////////////////////////////////////////////////
+/////// changes temp conversion ////////////////
+////////////////////////////////////////////////
+    onClickTempChange(e){
+        e.stopPropagation();
+        if(this.state.units === "F"){
+            this.setState({units: "C"});
+        }else {
+            this.setState({units: "F"});
         }
     }
 ////////////////////////////////////////////////
@@ -125,7 +139,7 @@ class Home extends React.Component {
         const inputLength = inputValue.length;
         let count = 0;
         this.lastInputLength = inputLength;
-        return inputLength === 0 ? [] : this.state.suggestionsList.filter(suggestion => {
+        return inputLength === 0 ? [] : this.suggestionsList.filter(suggestion => {
             const nameCountry = suggestion.name + ", " +suggestion.country;
             const keep = count < 5 && nameCountry.toLowerCase().slice(0, inputLength) === inputValue;
             if(keep) {
@@ -171,13 +185,19 @@ class Home extends React.Component {
         //units = metric for
         //no parms for K
         //units imperial for F
+        let unit = "";
+        if(this.state.units === "F"){
+            unit = "imperial"
+        }else{
+            unit = "metric"
+        }
         let address = process.env.REACT_APP_URL_OWM_FIVE;
         let that=this;
         request
         .get(address)
         .query({'id': this.cityId})
         .query({'APPID': process.env.REACT_APP_OWM_APPID})
-        .query({'units': 'imperial'})
+        .query({'units': unit})
         .set('Accept', 'application/json')
         .then( res => {
             let json = JSON.parse(res.text);
@@ -189,6 +209,8 @@ class Home extends React.Component {
             })
         })
         .catch( err => {
+            that.setState({isLoading: false});
+            that.setState({error: true});
             console.log("There was an error in getWeather:" + err);
         });
     }
@@ -208,6 +230,7 @@ class Home extends React.Component {
         return new Promise((resolve, reject) => {
             let address = process.env.REACT_APP_URL_TIMEZONEDB;
             const {lat, lon} = coord;
+            let that = this;
             request
             .get(address)
             .query({'key': process.env.REACT_APP_TIMEZONEDB_APPID})
@@ -223,7 +246,8 @@ class Home extends React.Component {
             })
             .catch(err => {
                 console.log("There was an error in setTimeZone:" + err);
-                reject({err:err})
+                that.setState({isLoading: false});
+                that.setState({error: true});
             });
         })
     }
@@ -282,6 +306,8 @@ class Home extends React.Component {
             }
             catch(err){
                 console.log("There was an error in getTempArray:" + err);
+                this.setState({isLoading: false});
+                this.setState({error: true});
                 reject({err: err});
             }
         })
@@ -315,6 +341,8 @@ class Home extends React.Component {
                 }
                 catch(err){
                 console.log("There was an error in getForcast:" + err);
+                this.setState({isLoading: false});
+                this.setState({error: true});
                 reject(<div></div>)
             }
         })
@@ -323,7 +351,7 @@ class Home extends React.Component {
 //// setting the json city code data  //////////
 ////////////////////////////////////////////////
     componentDidMount = () => {
-        this.setState({suggestionsList: jsonData});
+        this.suggestionsList = jsonData;
       };
 ////////////////////////////////////////////////
 /////// renders the jsx/ ///////////////////////
@@ -342,21 +370,24 @@ class Home extends React.Component {
             <ComponentContainer>
            <WeatherContainer>
             <p>Where would you like to check the weather?</p>
-            <Autosuggest
-                    renderInputComponent={this.renderInputComponent}
-                    suggestions={this.state.suggestions}
-                    onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-                    getSuggestionValue={this.getSuggestionValue}
-                    renderSuggestion={this.renderSuggestion}
-                    inputProps={inputProps}
-                    theme={{
-                        container: classes.container,
-                        suggestionsContainerOpen: classes.suggestionsContainerOpen,
-                        suggestionsList: classes.suggestionsList,
-                        suggestion: classes.suggestion,
-                    }}
-            />
+            <SuggestionContainer>
+                <Autosuggest
+                        renderInputComponent={this.renderInputComponent}
+                        suggestions={this.state.suggestions}
+                        onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+                        onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+                        getSuggestionValue={this.getSuggestionValue}
+                        renderSuggestion={this.renderSuggestion}
+                        inputProps={inputProps}
+                        theme={{
+                            container: classes.container,
+                            suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                            suggestionsList: classes.suggestionsList,
+                            suggestion: classes.suggestion,
+                        }}
+                />
+                <Button color="primary" variant="text" onClick={(e)=>{this.onClickTempChange(e)}} size="small" disableRipple={true} disableFocusRipple={true} className={classes.buttonUnits}>{this.state.units}&#176;</Button>
+            </SuggestionContainer>
             <Button variant="outlined" color="primary" onClick={this.getWeather} className={classes.button}>Submit</Button>
             { this.state.forcastDisplay.length !== 0 && (
             <div>
@@ -367,7 +398,7 @@ class Home extends React.Component {
             {this.state.forcastIndepth !== "" && (
                <ForcastDisplayContainer>
                 <DetailsContainer>
-                    <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
+                    <Button onClick={(e) => this.onClickCancel("Forcast", e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
                     <Detail>
                         {this.state.forcastIndepth}
                     </Detail>
@@ -378,6 +409,14 @@ class Home extends React.Component {
                         <Loading>
                             <Spinner name="ball-spin-fade-loader" fadeIn="quarter" color="black"/>
                         </Loading>
+                    )}
+            {this.state.error && (
+                        <ErrorContainer>
+                            <ErrorPopup>
+                                <Button onClick={(e) => this.onClickCancel("Error", e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
+                                <ErrorMessage>There was an error. Please try again later.</ErrorMessage>
+                            </ErrorPopup>
+                        </ErrorContainer>
                     )}
             {this.state.backgroundImg === "clear" && (
                 <BackgroundClearIn>
@@ -494,7 +533,8 @@ const styles = {
     position: 'relative',
     color: 'black',
     width: '18em',
-    marginBottom: '.5em'
+    marginBottom: '.5em',
+    marginLeft: '2em'
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -525,6 +565,17 @@ const styles = {
   button: {
     width: '18em'
   },
+  buttonUnits :{
+    width: '0',
+    padding: '0',
+    backgroundColor:"transparent",
+    position: 'relative',
+    margin: '-1em',
+    "&:hover": {
+        //you want this to be the same as the backgroundColor above
+        backgroundColor: "transparent"
+    }
+  },
   buttonCancel: {
     width: '1em',
   },
@@ -548,7 +599,7 @@ const BackgroundRainIn = styled.div`
     height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s 0s both;
+    animation: ${TransitionIn} .75s 0s both;
 `;
 const BackgroundClearIn = styled.div`
     position: absolute;
@@ -557,7 +608,7 @@ const BackgroundClearIn = styled.div`
     height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s 0s both;
+    animation: ${TransitionIn} .75s 0s both;
 `;
 const BackgroundSnowIn = styled.div`
     position: absolute;
@@ -566,7 +617,7 @@ const BackgroundSnowIn = styled.div`
     height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s 0s both;
+    animation: ${TransitionIn} .75s 0s both;
 `;
 const BackgroundCloudIn = styled.div`
     position: absolute;
@@ -575,7 +626,7 @@ const BackgroundCloudIn = styled.div`
     height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s 0s both;
+    animation: ${TransitionIn} .75s 0s both;
 `;
 const BackgroundMistIn = styled.div`
     position: absolute;
@@ -584,7 +635,7 @@ const BackgroundMistIn = styled.div`
     height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionIn} 1s 0s both;
+    animation: ${TransitionIn} .75s 0s both;
 `;
 const BackgroundRainOut = styled.div`
     position: absolute;
@@ -593,7 +644,7 @@ const BackgroundRainOut = styled.div`
     height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 1s 0s both;
+    animation: ${TransitionOut} .75s 0s both;
 `;
 const BackgroundClearOut = styled.div`
     position: absolute;
@@ -602,7 +653,7 @@ const BackgroundClearOut = styled.div`
     height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 1s 0s both;
+    animation: ${TransitionOut} .75s 0s both;
 `;
 const BackgroundSnowOut = styled.div`
     position: absolute;
@@ -611,7 +662,7 @@ const BackgroundSnowOut = styled.div`
     height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 1s 0s both;
+    animation: ${TransitionOut} .75s 0s both;
 `;
 const BackgroundCloudOut = styled.div`
     position: absolute;
@@ -620,7 +671,7 @@ const BackgroundCloudOut = styled.div`
     height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 1s 0s both;
+    animation: ${TransitionOut} .75s 0s both;
 `;
 const BackgroundMistOut = styled.div`
     position: absolute;
@@ -629,7 +680,7 @@ const BackgroundMistOut = styled.div`
     height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
-    animation: ${TransitionOut} 1s 0s both;
+    animation: ${TransitionOut} .75s 0s both;
 `;
 const ForcastDisplayContainer = styled.div`
     z-index:450;
@@ -670,6 +721,30 @@ const DetailsContainer = styled.div`
     background: rgb(245,245,245);
     text-align:right;
  `;
+ const ErrorContainer = styled.div`
+    z-index:450;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center
+    background: rgba(0, 0, 0, 0.5);;
+`;
+ const ErrorPopup = styled.div`
+    position: absolute;
+    z-index: 450;
+    max-width: 50%;
+    background: rgb(245,245,245);
+    border-radius: 5px;
+    text-align:right;
+    font-family: Raleway-Regular;
+ `;
+  const ErrorMessage = styled.div`
+    padding: 2em;
+ `;
 const Detail = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -681,6 +756,11 @@ const ComponentContainer = styled.div`
     display: flex;
     justify-content: center;
   `;
+const SuggestionContainer = styled.div`
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+`;
   const WeatherContainer = styled.div`
     margin: 2em;
     position:relative
