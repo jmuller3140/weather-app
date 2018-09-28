@@ -34,5 +34,5 @@ The reason why I ended up using another api was to get the timezone for each cit
  
  ## Notes
   1.   I had to change the npm scripts command to `react-scripts --max_old_space_size=4096 start` because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).<br/>
-  
+  2. Apparently there have been errors in Safari in some of the keyframe animations. I do not have a Mac so it is hard for me to error test at the moment. 
   
