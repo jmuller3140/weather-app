@@ -353,12 +353,14 @@ class Home extends React.Component {
             )}
             </WeatherContainer>
             {this.state.forcastIndepth !== "" && (
+               <ForcastDisplayContainer>
                 <DetailsContainer>
                     <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
                     <Detail>
                         {this.state.forcastIndepth}
                     </Detail>
                 </DetailsContainer>
+                </ForcastDisplayContainer>
                 )}
             {this.state.isLoading && (
                         <Loading>
@@ -414,18 +416,20 @@ class Home extends React.Component {
                         />
                         <Button variant="outlined" color="primary" onClick={this.getWeather} className={classes.button}>Submit</Button>
                         { this.state.forcastDisplay.length !== 0 && (
-                        <ForcastDisplayMobile>
-                                {this.state.forcastDisplay}
-                        </ForcastDisplayMobile>
+                            <ForcastDisplayMobile>
+                                    {this.state.forcastDisplay}
+                            </ForcastDisplayMobile>
                         )}
                     </WeatherContainerMobile>
                     {this.state.forcastIndepth !== "" && (
+                    <ForcastDisplayContainer>
                         <DetailsContainerMobile>
                             <Button onClick={(e) => this.onClickDetailsCancel(true, e)} variant = "outlined" className={classes.buttonCancel}>X</Button>
                             <Detail>
                                 {this.state.forcastIndepth}
                             </Detail>
                         </DetailsContainerMobile>
+                    </ForcastDisplayContainer>
                         )}
                 </ComponentContainer>
           </MediaQuery>
@@ -536,6 +540,18 @@ const BackgroundMist = styled.div`
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
 `;
+const ForcastDisplayContainer = styled.div`
+    z-index:450;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    background: rgba(0, 0, 0, 0.5);;
+    overflow-y:scroll;
+`;
 const ForcastFiveDay = styled.div`
     display: flex;
     justify-content: space-between;
@@ -545,6 +561,7 @@ const ForcastDetailsContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-family: Moon-Light;
 `;
 const ForcastDetailsItem = styled.div`
 
@@ -558,7 +575,7 @@ const DetailsContainer = styled.div`
     top: 3em;
     margin: 0 auto;
     max-width: 50%;
-    background-color: silver;
+    background: rgb(245,245,245);
     text-align:right;
  `;
 const Detail = styled.div`
@@ -627,7 +644,7 @@ const DetailsContainerMobile = styled.div`
     top: 3em;
     margin: 0 auto;
     max-width: 90%;
-    background-color: silver;
+    background-color: white;
     text-align:right;
  `;
 export default withStyles(styles)(Home);
