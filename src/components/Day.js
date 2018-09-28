@@ -34,6 +34,9 @@ const Day = (props) => {
         </div>
         )
 }
+///////////////////////////////
+/////// PropTypes /////////////
+///////////////////////////////
 Day.propTypes = {
     forcastDay: PropTypes.string,
     maxTemp: PropTypes.number,
@@ -44,6 +47,9 @@ Day.propTypes = {
     weatherDescription: PropTypes.string,
     onHover: PropTypes.func
 }
+///////////////////////////////
+///////// CSS /////////////////
+///////////////////////////////
     const TransitionIn = keyframes`
         0% { color: transparent; }
         100% { color: radboats; }
@@ -79,6 +85,9 @@ Day.propTypes = {
      animation: ${TransitionIn} 1s 1s both;
         font-family: "Moon-Bold";
     `;
+/////////////////////////////////////////////////
+///////////////  Mobile CSS /////////////////////
+/////////////////////////////////////////////////
     const ContainerMobile = styled.div`
             animation: ${TransitionIn} 1s .1s both;
             width: 100px;

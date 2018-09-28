@@ -60,6 +60,9 @@ const Details = (props) => {
         </div>
         )
 }
+//////////////////////////////////////////////
+///////// Proptypes /////////////////////////
+/////////////////////////////////////////////
 Details.propTypes = {
     main: PropTypes.object,
     weather: PropTypes.array,
@@ -69,6 +72,9 @@ Details.propTypes = {
     snow: PropTypes.object,
     dt_txt_local: PropTypes.string
 }
+////////////////////////////////////////////////
+////////////// CSS ////////////////////////////
+//////////////////////////////////////////
     const Container = styled.div`
         width: 150px;
         height: 250px;
@@ -96,7 +102,9 @@ Details.propTypes = {
     const MoonBold = styled.span`
         font-family: "Moon-Bold";
     `;
-
+///////////////////////////////////////
+/////////// Mobile CSS ////////////////
+//////////////////////////////////////
     const ContainerMobile = styled.div`
         width: 150px;
         height: 250px;

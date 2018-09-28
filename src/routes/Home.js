@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Footer from './Footer';
 import Day from '../components/Day';
 import Details from '../components/Details';
-import jsonData from './citylist.json';
+import jsonData from '../json/citylist.json';
 import rain from '../imgs/rain.png';
 import clear from '../imgs/clear.png';
 import mist from '../imgs/mist.png';
@@ -337,7 +337,7 @@ class Home extends React.Component {
          <MediaQuery query="(min-width: 1224px)">
             <ComponentContainer>
            <WeatherContainer>
-            <p>Where would you to check the weather?</p>
+            <p>Where would you like to check the weather?</p>
             <Autosuggest
                     renderInputComponent={this.renderInputComponent}
                     suggestions={this.state.suggestions}
@@ -513,7 +513,7 @@ const BackgroundRain = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:80%;
+    height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 2s .5s both;
@@ -522,7 +522,7 @@ const BackgroundClear = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:80%;
+    height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -531,7 +531,7 @@ const BackgroundSnow = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:80%;
+    height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -540,7 +540,7 @@ const BackgroundCloud = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:80%;
+    height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -549,7 +549,7 @@ const BackgroundMist = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:80%;
+    height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
