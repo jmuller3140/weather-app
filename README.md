@@ -30,6 +30,7 @@ The reason why I ended up using another api was to get the timezone for each cit
 ## With more time I would...
   1. Try to display the information in a more aesthetically pleasing. All the other weather apps I saw graph the increase of decrease in temperature. It would be cool to make graphs over time for the information at the very least.
   2. Figure out a more accurate way to calculate what logo I need to show on the 5 day panels.
+  3. Try to manipulate and organize the json cityID lookup to be more user friendly. Some cities have multiple id's and can be confusing, as it just shows multiple cities. 
  
  ## Notes
   1.   I had to change the npm scripts command to `react-scripts --max_old_space_size=4096 start` because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).<br/>
