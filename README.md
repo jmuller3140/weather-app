@@ -2,10 +2,9 @@
   An application that can tell the 5 day weather forcast for a given city and/or region
 ## How to Buildit ;)
   The Weather App was built using React.js bootstrapped using create-react-app, using npm to manage my project and its node modules:<br/>
-  Step 1: NPM environment is up and running<br/>
-  Step 2: Pull project from Github<br/>
-  Step 3: `npm install`<br/>
-  Step 4: `npm start` <br/>
+  Prereqs: Have Node installed, clone repo<br/>
+  Step 1: `npm install`<br/>
+  Step 2: `npm start` <br/>
   In the .env.example I have provided the URLs for the free apis. The only thing needed to run is a the free appIds. You can get it from:<br/>https://openweathermap.org/api<br/>
 and<br/>https://timezonedb.com/register<br/>
 The reason why I ended up using another api was to get the timezone for each city's weather information I was getting back. OWM does not provided the timezone or offset of the time in reference to UTC (at least not from what I saw)<br/>
