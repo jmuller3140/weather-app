@@ -6,11 +6,14 @@
   Step 2: Pull project from Github<br/>
   Step 3: 'npm install'<br/>
   Step 4: npm start <br/>
+  In the .env.example I have provided the URLs for the free apis. The only thing needed to run is a the free appIds. You can get it from:<br/>https://openweathermap.org/api<br/>
+and<br/>https://timezonedb.com/register
+
     Note: I had to change the npm scripts command to 'react-scripts --max_old_space_size=4096 start' because by dev server was crashing on start up. This may have been possibly due to the giant cityID JSON file from OpenWeatherMap (still trying to figure it out the root of the issue).<br/>
   Everything should work :D
 
 ## Thought Process
-  I wanted to make something that I could see myself using. Conceptually, I wanted to make something that was simple, but useful. I also wanted to use Material-UI because I had never worked with it on a project before. I also thought it would be cool if a background image cooresponding to the weather would be displayed when the user would hover would hover over a day (but I knew this would be one of the least important things technically). Because that way a person could know loosely what the weather is without looking at info.
+  I wanted to make something that I could see myself using. Conceptually, I wanted to make something that was simple, but useful. <br/>I also wanted to use Material-UI because I had never worked with it on a project before. I also thought it would be cool if a background image cooresponding to the weather would be displayed when the user would hover would hover over a day (but I knew this would be one of the least important things technically), that way a person could know loosely what the weather is without looking at info.
 
 ## Challenges
   1. Querying the giant JSON file given to me by OpenWeatherMaps. The file is used to send the OWM API the city code to retrieve the most accurate weather information according to the documentation. Initial lookup time was very slow.
