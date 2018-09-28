@@ -9,7 +9,7 @@ const Day = (props) => {
     const day = forcastDay.slice(0,3);
     return(
         <div>
-            <MediaQuery query="(min-device-width: 1224px)">
+            <MediaQuery query="(min-width: 1224px)">
                 <Container onClick={(e) => getDetails(e, hour, forcastDay)} onMouseOver={(e) => onHover(e, weatherIcon)}>
                     <MoonFont>{day}</MoonFont>
                     <img src={pictureSrc} alt="weather-img"/>
@@ -20,7 +20,7 @@ const Day = (props) => {
                     </ItemDisplay>
                 </Container>
             </MediaQuery>
-            <MediaQuery query="(max-device-width: 1224px)">
+            <MediaQuery query="(max-width: 1224px)">
                 <ContainerMobile onClick={(e) => getDetails(e, hour, forcastDay)} onMouseOver={(e) => onHover(e, weatherIcon)}>
                     <MoonFont>{day}</MoonFont>
                     <img src={pictureSrc} alt="weather-img"/>

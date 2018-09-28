@@ -8,7 +8,9 @@ import styled from 'styled-components';
 const Footer = () => {
 
     const FooterContainer = styled.div`
+        position:relative;
         width:100%;
+        margin-top:13em;
         padding-bottom:5em;
         display:flex;
         flex-direction:column;
@@ -28,16 +30,16 @@ const Footer = () => {
         border-top:1px solid silver;
 
         &:hover{
-            color:white;
+            color:black;
         }
     `;
     const Copyright = styled.div`
         color:grey;
         font-family:Moon-Light;
     `;
-//
-// ---------------------
-//
+//////////////////////////////
+// Mobile functionality //////
+/////////////////////////////
     const FooterContainerMobile = styled.div`
         width:100%;
         padding-bottom:5em;
@@ -59,7 +61,7 @@ const Footer = () => {
         border-top:1px solid silver;
 
         &:hover{
-            color:white;
+            color:black;
         }
     `;
     const CopyrightMobile = styled.div`
@@ -71,25 +73,19 @@ const Footer = () => {
         <div>
             <MediaQuery query="(min-device-width: 1224px)">
                 <FooterContainer>
-                    <Icons>
-                        <Icon href="https://www.facebook.com/jimmy.muller.7140" target="_blank"><FontAwesomeIcon icon={faFacebook}/></Icon>
-                        <Icon href="https://twitter.com/jmuller3140" target="_blank"><FontAwesomeIcon icon={faTwitterSquare}/></Icon>
-                        <Icon href="http://www.linkedin.com/in/james-muller3140" target="_blank"><FontAwesomeIcon icon={faLinkedin}/></Icon>
-                        <Icon href="https://github.com/jmuller3140" target="_blank"><FontAwesomeIcon icon={faGithub}/></Icon>
-                    </Icons>
+                    <Copyright>
+                        Made by James Muller
+                    </Copyright><br/>
                     <Copyright>
                         Made in 2018 <FontAwesomeIcon icon={faCopyright}/>
                     </Copyright>
                 </FooterContainer>
             </MediaQuery>
             <MediaQuery query="(max-device-width: 1224px)">
-                <FooterContainerMobile >
-                    <IconsMobile>
-                        <IconMobile href="https://www.facebook.com/jimmy.muller.7140" target="_blank"><FontAwesomeIcon icon={faFacebook}/></IconMobile>
-                        <IconMobile href="https://twitter.com/jmuller3140" target="_blank"><FontAwesomeIcon icon={faTwitterSquare}/></IconMobile>
-                        <IconMobile href="http://www.linkedin.com/in/james-muller3140" target="_blank"><FontAwesomeIcon icon={faLinkedin}/></IconMobile>
-                        <IconMobile href="https://github.com/jmuller3140" target="_blank"><FontAwesomeIcon icon={faGithub}/></IconMobile>
-                    </IconsMobile>
+                <FooterContainerMobile>
+                    <CopyrightMobile>
+                        Made by James Muller
+                    </CopyrightMobile>
                     <CopyrightMobile>
                         Made in 2018 <FontAwesomeIcon icon={faCopyright}/>
                     </CopyrightMobile>

@@ -14,6 +14,7 @@ import MediaQuery from 'react-responsive';
 import { withStyles } from '@material-ui/core/styles';
 
 import Header from './Header';
+import Footer from './Footer';
 import Day from '../components/Day';
 import Details from '../components/Details';
 import jsonData from './citylist.json';
@@ -326,7 +327,7 @@ class Home extends React.Component {
     const {suggestions} = this.state;
     return (
         <div>
-         <MediaQuery query="(min-device-width: 1224px)">
+         <MediaQuery query="(min-width: 1224px)">
             <ComponentContainer>
            <WeatherContainer>
             <p>What weather would you like to see?</p>
@@ -395,7 +396,7 @@ class Home extends React.Component {
             }
             </ComponentContainer>
          </MediaQuery>
-          <MediaQuery query="(max-device-width: 1224px)">
+          <MediaQuery query="(max-width: 1224px)">
                 <ComponentContainer>
                     <WeatherContainerMobile>
                         <p>What weather would you like to see?</p>
@@ -433,6 +434,7 @@ class Home extends React.Component {
                         )}
                 </ComponentContainer>
           </MediaQuery>
+        <Footer/>
         </div>
     );
   }
@@ -499,7 +501,7 @@ const BackgroundRain = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:75%;
+    height:78%;
     background: url(${rain}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 2s .5s both;
@@ -508,7 +510,7 @@ const BackgroundClear = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:75%;
+    height:78%;
     background: url(${clear}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -517,7 +519,7 @@ const BackgroundSnow = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:75%;
+    height:78%;
     background: url(${snow}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -526,7 +528,7 @@ const BackgroundCloud = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:75%;
+    height:78%;
     background: url(${cloud}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -535,7 +537,7 @@ const BackgroundMist = styled.div`
     position: absolute;
     z-index: 300;
     width:100%;
-    height:75%;
+    height:78%;
     background: url(${mist}) center fixed no-repeat;
     background-size: cover;
     animation: ${TransitionIn} 1s .5s both;
@@ -562,6 +564,7 @@ const ForcastDetailsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     font-family: Moon-Light;
+    font-size:15pt;
 `;
 const ForcastDetailsItem = styled.div`
 
@@ -605,7 +608,7 @@ const ComponentContainer = styled.div`
     width: 100%;
     height:100%;
     position:fixed;
-    margin-top: -12.5em;
+    margin-top: -10.5%;
     z-index:500;
     display: flex;
     align-items: center;
@@ -630,7 +633,7 @@ const ComponentContainer = styled.div`
   const ForcastDisplayMobile = styled.div`
     display:flex;
     flex-wrap:wrap;
-    max-width:90%;
+    mix-width:90%;
   `;
   const ForcastFiveDayMobile = styled.div`
     display:flex;
