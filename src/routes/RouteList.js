@@ -16,11 +16,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const RouteList = ({location, match}) => {
+const RouteList = () => {
               return (
           <Wrapper>
               <section className="route-section">
-                <Switch location={location}>
+                <Switch >
                   <Route exact path="/" component={Home} />
                 </Switch>
                 </section>

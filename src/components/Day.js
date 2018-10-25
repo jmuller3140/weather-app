@@ -57,6 +57,7 @@ Day.propTypes = {
     `;
     const Container = styled.div`
             animation: ${TransitionIn} 1s .1s both;
+            -webkit-animation: ${TransitionIn} 1s 1s both;
             width: 150px;
             height: 200px;
             display:flex;
@@ -72,6 +73,7 @@ Day.propTypes = {
         `;
     const ItemDisplay = styled.div`
             animation: ${TransitionIn} 1s 1s both;
+            -webkit-animation: ${TransitionIn} 1s 1s both;
             display:flex;
             flex-direction: column;
             align-items: left;
@@ -79,10 +81,12 @@ Day.propTypes = {
         `;
     const MoonFont = styled.span`
      animation: ${TransitionIn} 1s 1s both;
+     -webkit-animation: ${TransitionIn} 1s 1s both;
         font-family: "Moon-Light";
     `;
     const MoonBold = styled.span`
      animation: ${TransitionIn} 1s 1s both;
+     -webkit-animation: ${TransitionIn} 1s 1s both;
         font-family: "Moon-Bold";
     `;
 /////////////////////////////////////////////////
@@ -90,6 +94,7 @@ Day.propTypes = {
 /////////////////////////////////////////////////
     const ContainerMobile = styled.div`
             animation: ${TransitionIn} 1s .1s both;
+             -webkit-animation: ${TransitionIn} 1s .1s both;
             width: 100px;
             height: 200px;
             display:flex;
